@@ -12,13 +12,15 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0",
-	name: "Literally nothing",
+	num: "0.0.1",
+	name: "How does this change anything",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<h3>v0.0 - Literally nothing</h3><br>
-		- Added nothing at all.`
+ <h2>v0.0.0 - Literally nothing</h2><br>
+ - Added nothing at all, there is still the green prestige layer though.<br>
+ <h3>v0.0.1 - How does this change anything</h3><br>
+ - Changed the mod info, that's it lol`
 
 let winText = `Congratulations! You have conquered reality with your emeralds and beaten this game, for now...`
 
