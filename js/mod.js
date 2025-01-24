@@ -12,15 +12,17 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0.1",
-	name: "How does this change anything",
+	num: "0.0.2",
+	name: "The First Upgrade",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
  <h2>v0.0.0 - Literally nothing</h2><br>
  - Added nothing at all, there is still the green prestige layer though.<br>
  <h3>v0.0.1 - How does this change anything</h3><br>
- - Changed the mod info, that's it lol`
+ - Changed the mod info, that's it lol<br>
+ <h3>v0.0.2 - The First Upgrade</h3><br>
+ - Added the First Difficulty`
 
 let winText = `Congratulations! You have broken reality by beating the hardest difficulty and have beaten this game, for now...`
 
@@ -34,7 +36,7 @@ function getStartPoints(){
 
 // Determines if it should show points/sec
 function canGenPoints(){
-	return true
+	return hasUpgrade("u",11)
 }
 
 // Calculate points/sec!
