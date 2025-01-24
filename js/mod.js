@@ -1,7 +1,7 @@
 let modInfo = {
-	name: "The Sacred Emerald Tree",
+	name: "The Upgrade Per Difficulty Tree",
 	author: "AndyMHo at Github",
-	pointsName: "emeralds",
+	pointsName: "difficulty power",
 	modFiles: ["layers.js", "tree.js"],
 
 	discordName: "",
@@ -22,7 +22,7 @@ let changelog = `<h1>Changelog:</h1><br>
  <h3>v0.0.1 - How does this change anything</h3><br>
  - Changed the mod info, that's it lol`
 
-let winText = `Congratulations! You have conquered reality with your emeralds and beaten this game, for now...`
+let winText = `Congratulations! You have broken reality by beating the hardest difficulty and have beaten this game, for now...`
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
