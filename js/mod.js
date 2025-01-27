@@ -23,7 +23,8 @@ let changelog = `<h1>Changelog:</h1><br>
  - Added The First Difficulty<br>
  <h3>v0.0.1 - Bit and Piece</h3><br>
  - Beatified the upgrades<br>
- - Added The Lower Gap`
+ - Finished Class -1 Baseline<br>
+ - There's music now :D`
 
 let winText = `Congratulations! You have broken reality by buying the hardest difficulty and have beaten this game, for now...`
 
@@ -46,6 +47,10 @@ function getPointGen() {
 		return new Decimal(0)
 
 	let gain = new Decimal(1)
+	if (hasUpgrade("u",12))
+	 gain = gain.mul(upgradeEffect("u",12))
+	if (hasUpgrade("u",13))
+	 gain = gain.mul(new Decimal(1.5))
 	return gain
 }
 

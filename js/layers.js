@@ -4,7 +4,7 @@ addLayer("u", {
     position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     startData() { return {
         unlocked: true,
-		       points: new Decimal(1),
+		       points: new Decimal(0),
         cash: new Decimal(0),
         existenceLevel: "-Ω"
     }},
@@ -29,11 +29,14 @@ addLayer("u", {
     upgrades: {
         11: {
             title: "The First Difficulty",
-            description: "Start generating DP",
+            description: "Start generating difficulty power",
             fullDisplay() {
                 return '<h3>'+this.title+'</h3><br>'+
                 this.description+'<br><br>Cost: 0 '+
                 this.currencyDisplayName
+            },
+            onPurchase() {
+                player[this.layer].points = (player[this.layer].points).add(new Decimal(1))
             },
             style : {
                 "text-shadow" : "-1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff",
@@ -47,11 +50,15 @@ addLayer("u", {
         },
         12: {
             title: "The Lower Gap",
-            description: "DP is boosted by the amount of difficulties unlocked",
+            description: "Difficulty power is boosted by the amount of difficulties unlocked",
+            effect() {return (player.u.points).sqrt()},
             fullDisplay() {
                 return '<h3>'+this.title+'</h3><br>'+
-                this.description+'<br><br>Cost: 10 '+
-                this.currencyDisplayName
+                this.description+'<br>Currently: '+format(this.effect())+
+                'x<br><br>Cost: 10 '+this.currencyDisplayName
+            },
+            onPurchase() {
+                player[this.layer].points = (player[this.layer].points).add(new Decimal(1))
             },
             style : {
                 "text-shadow" : "-1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff",
@@ -62,7 +69,30 @@ addLayer("u", {
             currencyDisplayName: "difficulty power",
             canAfford() {return (player.points).gte(new Decimal(10))},
             pay() {player.points = (player.points).sub(new Decimal(10))}
+        },
+        13: {
+            title: "Negativity",
+            description: "Boost difficulty power gain by 1.5",
+            effect() {return (player.u.points).sqrt()},
+            fullDisplay() {
+                return '<h3>'+this.title+'</h3><br>'+
+                this.description+'<br>Currently: '+format(this.effect())+
+                'x<br><br>Cost: 25 '+this.currencyDisplayName
+            },
+            onPurchase() {
+                player[this.layer].points = (player[this.layer].points).add(new Decimal(1))
+            },
+            style : {
+                "text-shadow" : "-1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff",
+                "background-image" : "url(https://static.wikia.nocookie.net/jtohs-joke-towers/images/9/90/Negativity.png)",
+                "background-blend-mode" : "luminosity",
+                "background-size" : "100%"
+            },
+            currencyDisplayName: "difficulty power",
+            canAfford() {return (player.points).gte(new Decimal(25))},
+            pay() {player.points = (player.points).sub(new Decimal(25))}
         }
     },
+    tabFormat: ["raw-html", function() {return options.musicToggle ? '<audio controls autoplay loop hidden src="music/all8BitNow.mp3"></audio>' : ""}],
     layerShown(){return true}
 })
