@@ -12,19 +12,20 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0.2",
-	name: "The First Upgrade",
+	num: "0.0.1",
+	name: "Bit and Piece",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
- <h2>v0.0.0 - Literally nothing</h2><br>
+ <h2>v0.0 - Literally nothing</h2><br>
  - Added nothing at all, there is still the green prestige layer though.<br>
- <h3>v0.0.1 - How does this change anything</h3><br>
  - Changed the mod info, that's it lol<br>
- <h3>v0.0.2 - The First Upgrade</h3><br>
- - Added the First Difficulty`
+ - Added The First Difficulty<br>
+ <h3>v0.0.1 - Bit and Piece</h3><br>
+ - Beatified the upgrades<br>
+ - Added The Lower Gap`
 
-let winText = `Congratulations! You have broken reality by beating the hardest difficulty and have beaten this game, for now...`
+let winText = `Congratulations! You have broken reality by buying the hardest difficulty and have beaten this game, for now...`
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)

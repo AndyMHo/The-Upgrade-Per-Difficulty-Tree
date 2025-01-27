@@ -4,11 +4,13 @@ addLayer("u", {
     position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     startData() { return {
         unlocked: true,
-		       points: new Decimal(0),
+		       points: new Decimal(1),
+        cash: new Decimal(0),
+        existenceLevel: "-Ω"
     }},
     color: "#7F7FFF",
-    requires: new Decimal(10), // Can be a function that takes requirement increases into account
-    resource: "existence", // Name of prestige currency
+    requires: new Decimal(Infinity), // Can be a function that takes requirement increases into account
+    resource: "unlosables", // Name of prestige currency
     baseResource: "difficulty power", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
@@ -28,7 +30,38 @@ addLayer("u", {
         11: {
             title: "The First Difficulty",
             description: "Start generating DP",
-            cost: new Decimal(0)
+            fullDisplay() {
+                return '<h3>'+this.title+'</h3><br>'+
+                this.description+'<br><br>Cost: 0 '+
+                this.currencyDisplayName
+            },
+            style : {
+                "text-shadow" : "-1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff",
+                "background-image" : "url(https://static.wikia.nocookie.net/jtohs-joke-towers/images/5/51/Tfird.png)",
+                "background-blend-mode" : "luminosity",
+                "background-size" : "100%"
+            },
+            currencyDisplayName: "difficulty power",
+            canAfford() {return (player.points).gte(new Decimal(0))},
+            pay() {player.points = (player.points).sub(new Decimal(0))}
+        },
+        12: {
+            title: "The Lower Gap",
+            description: "DP is boosted by the amount of difficulties unlocked",
+            fullDisplay() {
+                return '<h3>'+this.title+'</h3><br>'+
+                this.description+'<br><br>Cost: 10 '+
+                this.currencyDisplayName
+            },
+            style : {
+                "text-shadow" : "-1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff",
+                "background-image" : "url(https://static.wikia.nocookie.net/jtohs-joke-towers/images/4/47/TheLowerGapRemake.png)",
+                "background-blend-mode" : "luminosity",
+                "background-size" : "100%"
+            },
+            currencyDisplayName: "difficulty power",
+            canAfford() {return (player.points).gte(new Decimal(10))},
+            pay() {player.points = (player.points).sub(new Decimal(10))}
         }
     },
     layerShown(){return true}
