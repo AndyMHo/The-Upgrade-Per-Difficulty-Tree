@@ -93,6 +93,6 @@ addLayer("u", {
             pay() {player.points = (player.points).sub(new Decimal(25))}
         }
     },
-    //tabFormat: ["raw-html", function() {return options.musicToggle ? '<audio controls src="music/all8BitNow.mp3"></audio>' : ""}],
+    //tabFormat: ["raw-html", function() {return options.musicToggle ? '<audio controls src="../music/all8BitNow.mp3"></audio>' : ""}],
     layerShown(){return true}
 })
