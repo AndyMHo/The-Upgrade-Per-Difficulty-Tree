@@ -24,7 +24,8 @@ let changelog = `<h1>Changelog:</h1><br>
  <h3>v0.0.1 - Bit and Piece</h3><br>
  - Beatified the upgrades<br>
  - Finished Class -1 Baseline<br>
- - There's music now :D Toggle it in options`
+ - There's music now :D Toggle it in options
+ - Keybinds autobuy upgrades, if possible`
 
 let winText = `Congratulations! You have broken reality by buying the hardest difficulty and have beaten this game, for now...`
 

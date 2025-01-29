@@ -24,7 +24,13 @@ addLayer("u", {
     },
     row: 0, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
-        {key: "u", description: "U: Reset for existence", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "u", description: "U: Buy available Class -1 upgrades", 
+            onPress() {
+                buyUpgrade(this.layer,11)
+                buyUpgrade(this.layer,12)
+                buyUpgrade(this.layer,13)
+            }
+        },
     ],
     upgrades: {
         11: {
@@ -72,7 +78,7 @@ addLayer("u", {
         },
         13: {
             title: "Negativity",
-            description: "Boost difficulty power gain by 1.5",
+            description: "Boost difficulty power gain by 1.5, also unlocks the Pre-Excavation chain",
             effect() {return (player.u.points).sqrt()},
             fullDisplay() {
                 return '<h3>'+this.title+'</h3><br>'+
