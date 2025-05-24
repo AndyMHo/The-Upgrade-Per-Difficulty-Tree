@@ -5,10 +5,9 @@ addLayer("u", {
     startData() { return {
         unlocked: true,
 		       points: new Decimal(0),
-        cash: new Decimal(0),
         existenceLevel: "-Ω"
     }},
-    color: "#7F7FFF",
+    color: "#00007F",
     requires: new Decimal(Infinity), // Can be a function that takes requirement increases into account
     resource: "unlosables", // Name of prestige currency
     baseResource: "difficulty power", // Name of resource prestige is based on
@@ -57,7 +56,7 @@ addLayer("u", {
         12: {
             title: "The Lower Gap",
             description: "Difficulty power is boosted by the amount of difficulties unlocked",
-            effect() {return (player.u.points).sqrt()},
+            effect() {return (player.u.points.add(player.pe.points)).sqrt()},
             fullDisplay() {
                 return '<h3>'+this.title+'</h3><br>'+
                 this.description+'<br>Currently: '+format(this.effect())+
@@ -79,11 +78,10 @@ addLayer("u", {
         13: {
             title: "Negativity",
             description: "Boost difficulty power gain by 1.5, also unlocks the Pre-Excavation chain",
-            effect() {return (player.u.points).sqrt()},
             fullDisplay() {
                 return '<h3>'+this.title+'</h3><br>'+
-                this.description+'<br>Currently: '+format(this.effect())+
-                'x<br><br>Cost: 25 '+this.currencyDisplayName
+                this.description+
+                '<br><br>Cost: 25 '+this.currencyDisplayName
             },
             onPurchase() {
                 player[this.layer].points = (player[this.layer].points).add(new Decimal(1))
@@ -108,4 +106,71 @@ addLayer("u", {
         ["raw-html", function() {return options.musicToggle ? '<audio controls loop hidden autoplay><source src="music/all8BitNow.mp3"/></audio>' : ""}]
     ],
     layerShown(){return true}
+})
+
+addLayer("pe", {
+    name: "Pre-Excavation Chain", // This is optional, only used in a few places, If absent it just uses the layer id.
+    symbol: "PE", // This appears on the layer's node. Default is the id with the first letter capitalized
+    position: 1, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    startData() { return {
+        unlocked: true,
+		       points: new Decimal(0),
+        cash: new Decimal(0)
+    }},
+    color: "#008380",
+    requires: new Decimal(Infinity), // Can be a function that takes requirement increases into account
+    resource: "excavations", // Name of prestige currency
+    baseResource: "difficulty power", // Name of resource prestige is based on
+    baseAmount() {return player.points}, // Get the current amount of baseResource
+    type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
+    exponent: 0.5, // Prestige currency exponent
+    gainMult() { // Calculate the multiplier for main currency from bonuses
+        mult = new Decimal(1)
+        return mult
+    },
+    gainExp() { // Calculate the exponent on main currency from bonuses
+        return new Decimal(1)
+    },
+    row: 1, // Row the layer is in on the tree (0 is the first row)
+    hotkeys: [
+        {key: "P", description: "Shift+P: Buy available Pre-Excavation Chain upgrades", 
+            onPress() {
+                buyUpgrade(this.layer,11)
+            }
+        },
+    ],
+    upgrades: {
+        11: {
+            title: "Cash",
+            description: "Start generating cash",
+            fullDisplay() {
+                return '<h3>'+this.title+'</h3><br>'+
+                this.description+'<br><br>Cost: 0 '+
+                this.currencyDisplayName
+            },
+            onPurchase() {
+                player[this.layer].points = (player[this.layer].points).add(new Decimal(1))
+            },
+            style : {
+                "text-shadow" : "-1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff",
+                "background-image" : "url(https://static.wikia.nocookie.net/jtohs-joke-towers/images/5/51/Tfird.png)",
+                "background-blend-mode" : "luminosity",
+                "background-size" : "100%"
+            },
+            currencyDisplayName: "difficulty power",
+            canAfford() {return (player.points).gte(new Decimal(0))},
+            pay() {player.points = (player.points).sub(new Decimal(0))}
+        }
+    },
+    tabFormat: [
+        "main-display",
+        "prestige-button",
+        "resource-display",
+        "blank",
+        ["display-text", function() {return "You have " + format(player[this.layer].cash) + " cash"}],
+        "upgrades",
+        ["raw-html", function() {return options.musicToggle ? '<audio controls loop hidden autoplay><source src="music/all8BitNow.mp3"/></audio>' : ""}]
+    ],
+    branches: ["u"],
+    layerShown(){return hasUpgrade("u",13)}
 })
