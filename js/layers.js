@@ -153,7 +153,7 @@ addLayer("pe", {
             },
             style : {
                 "text-shadow" : "-1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff",
-                "background-image" : "url(https://static.wikia.nocookie.net/jtohs-joke-towers/images/5/51/Tfird.png)",
+                "background-image" : "url(https://static.wikia.nocookie.net/jtohs-joke-towers/images/6/66/Cash.png)",
                 "background-blend-mode" : "luminosity",
                 "background-size" : "100%"
             },
