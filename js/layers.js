@@ -115,7 +115,8 @@ addLayer("pe", {
     startData() { return {
         unlocked: true,
 		       points: new Decimal(0),
-        cash: new Decimal(0)
+        cash: new Decimal(0),
+        cashGain: new Decimal(0)
     }},
     color: "#008380",
     requires: new Decimal(Infinity), // Can be a function that takes requirement increases into account
@@ -150,6 +151,7 @@ addLayer("pe", {
             },
             onPurchase() {
                 player[this.layer].points = (player[this.layer].points).add(new Decimal(1))
+                player[this.layer].cashGain = (player[this.layer].cashGain).add(new Decimal(1))
             },
             style : {
                 "text-shadow" : "-1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff",
@@ -157,9 +159,9 @@ addLayer("pe", {
                 "background-blend-mode" : "luminosity",
                 "background-size" : "100%"
             },
-            currencyDisplayName: "difficulty power",
-            canAfford() {return (player.points).gte(new Decimal(0))},
-            pay() {player.points = (player.points).sub(new Decimal(0))}
+            currencyDisplayName: "cash",
+            canAfford() {return (player[this.layer].cash).gte(new Decimal(0))},
+            pay() {player.points = (player[this.layer].cash).sub(new Decimal(0))}
         }
     },
     tabFormat: [
@@ -167,10 +169,14 @@ addLayer("pe", {
         "prestige-button",
         "resource-display",
         "blank",
-        ["display-text", function() {return "You have " + format(player[this.layer].cash) + " cash"}],
+        ["display-text", function() {return "You have " + format(player[this.layer].cash) + " cash, gaining " + format(player[this.layer].cashGain) + " cash per second."}],
         "upgrades",
         ["raw-html", function() {return options.musicToggle ? '<audio controls loop hidden autoplay><source src="music/all8BitNow.mp3"/></audio>' : ""}]
     ],
     branches: ["u"],
     layerShown(){return hasUpgrade("u",13)}
 })
+
+function gainLayerPoints() {
+    player.pe.cash = (player.pe.cash).add((player.pe.cashGain).div(new Decimal(20)))
+}
